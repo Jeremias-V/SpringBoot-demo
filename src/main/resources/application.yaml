@@ -1,0 +1,44 @@
+server:
+  port: 8085
+spring:
+  profiles:
+    active: db-non-persist
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: db-non-persist
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:dcbapp
+    username: user
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+welcome:
+  message: Welcome to the Spring Boot Tutorial! This message can be changed in the file application.properties
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: db-persist
+  datasource:
+    url: jdbc:postgresql://localhost:5432/op_microservice
+    username: op_user
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
